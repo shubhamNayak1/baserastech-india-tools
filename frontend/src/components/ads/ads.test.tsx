@@ -59,3 +59,22 @@ describe('ad layout', () => {
     expect(document.querySelector('[data-ad="left"]')).toHaveClass('hidden');
   });
 });
+
+describe('build-time AdSense head tags', () => {
+  it('are empty when disabled and include script + meta when enabled', async () => {
+    const { adsenseHeadHtml } = await import('./adsenseHead');
+    expect(adsenseHeadHtml(readAdsConfig({}))).toBe('');
+    const html = adsenseHeadHtml(
+      readAdsConfig({
+        VITE_ADSENSE_ENABLED: 'true',
+        VITE_ADSENSE_PUBLISHER_ID: 'ca-pub-0000000000000000',
+      }),
+    );
+    expect(html).toContain(
+      '<meta name="google-adsense-account" content="ca-pub-0000000000000000" />',
+    );
+    expect(html).toContain(
+      'src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"',
+    );
+  });
+});

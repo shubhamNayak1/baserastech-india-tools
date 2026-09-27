@@ -6,7 +6,7 @@ services:
     build:
       context: ./frontend
       args:
-        VITE_SITE_URL: ${VITE_SITE_URL:-https://tools.baserastech.com}
+        VITE_SITE_URL: ${VITE_SITE_URL:-https://baserastechtool.com}
         VITE_CONTACT_EMAIL: ${VITE_CONTACT_EMAIL:-}
         VITE_ADSENSE_ENABLED: ${VITE_ADSENSE_ENABLED:-false}
         VITE_ADSENSE_PUBLISHER_ID: ${VITE_ADSENSE_PUBLISHER_ID:-}

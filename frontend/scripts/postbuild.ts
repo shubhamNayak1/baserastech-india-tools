@@ -7,6 +7,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderHeadHtml } from '../src/seo/head';
 import { buildStaticPages, robotsTxt, sitemapXml } from './seo-pages';
+import { loadEnv } from 'vite';
 import { readAdsConfig } from '../src/config/ads';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -33,7 +34,7 @@ const today = new Date().toISOString().slice(0, 10);
 writeFileSync(join(dist, 'sitemap.xml'), sitemapXml(pages, today));
 writeFileSync(join(dist, 'robots.txt'), robotsTxt());
 // ads.txt authorises Google to sell ads on this domain. Only written for a real, configured publisher ID.
-const ads = readAdsConfig(process.env);
+const ads = readAdsConfig({ ...loadEnv('production', root, 'VITE_'), ...process.env });
 if (ads.enabled) {
   writeFileSync(
     join(dist, 'ads.txt'),

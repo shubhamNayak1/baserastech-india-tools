@@ -6,7 +6,7 @@ COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY . .
 # Build-time configuration (Vite inlines VITE_* values into the static bundle).
-ARG VITE_SITE_URL=https://tools.baserastech.com
+ARG VITE_SITE_URL=https://baserastechtool.com
 ARG VITE_CONTACT_EMAIL=
 ARG VITE_ADSENSE_ENABLED=false
 ARG VITE_ADSENSE_PUBLISHER_ID=

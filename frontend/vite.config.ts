@@ -1,10 +1,23 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
+import { readAdsConfig } from './src/config/ads';
+import { adsenseHeadHtml } from './src/components/ads/adsenseHead';
 
-export default defineConfig({
-  plugins: [react()],
+/** Writes the AdSense script + account meta tag into index.html (and so every prerendered page). */
+function adsenseHead(env: Record<string, string | undefined>): Plugin {
+  return {
+    name: 'adsense-head',
+    transformIndexHtml(html) {
+      const tags = adsenseHeadHtml(readAdsConfig(env));
+      return tags ? html.replace('</head>', `    ${tags}\n  </head>`) : html;
+    },
+  };
+}
+
+export default defineConfig(({ mode }) => ({
+  plugins: [react(), adsenseHead({ ...loadEnv(mode, process.cwd(), 'VITE_'), ...process.env })],
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
@@ -37,4 +50,4 @@ export default defineConfig({
       exclude: ['src/**/*.test.{ts,tsx}', 'src/**/content.ts', 'src/test/**', 'src/main.tsx'],
     },
   },
-});
+}));

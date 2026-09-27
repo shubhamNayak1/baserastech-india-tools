@@ -9,7 +9,7 @@ export const SITE = {
   product: 'India Tools',
   name: 'BASERASTECH India Tools',
   tagline: 'Free Online Calculators & Tools for India',
-  url: env.VITE_SITE_URL?.replace(/\/$/, '') || 'https://tools.baserastech.com',
+  url: env.VITE_SITE_URL?.replace(/\/$/, '') || 'https://baserastechtool.com',
   /** Public contact address shown on the Contact page (optional until configured). */
   contactEmail: env.VITE_CONTACT_EMAIL?.trim() || '',
   locale: 'en_IN',
