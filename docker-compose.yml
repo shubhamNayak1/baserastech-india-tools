@@ -1,0 +1,20 @@
+# BASERASTECH India Tools – static website served by Nginx (no backend, no database).
+#   cp .env.example .env   # optional: AdSense / Analytics IDs
+#   docker compose up --build   →  http://localhost:8081
+services:
+  web:
+    build:
+      context: ./frontend
+      args:
+        VITE_SITE_URL: ${VITE_SITE_URL:-https://tools.baserastech.com}
+        VITE_CONTACT_EMAIL: ${VITE_CONTACT_EMAIL:-}
+        VITE_ADSENSE_ENABLED: ${VITE_ADSENSE_ENABLED:-false}
+        VITE_ADSENSE_PUBLISHER_ID: ${VITE_ADSENSE_PUBLISHER_ID:-}
+        VITE_ADSENSE_TOP_SLOT: ${VITE_ADSENSE_TOP_SLOT:-}
+        VITE_ADSENSE_BOTTOM_SLOT: ${VITE_ADSENSE_BOTTOM_SLOT:-}
+        VITE_ADSENSE_LEFT_SLOT: ${VITE_ADSENSE_LEFT_SLOT:-}
+        VITE_ADSENSE_RIGHT_SLOT: ${VITE_ADSENSE_RIGHT_SLOT:-}
+        VITE_GOOGLE_ANALYTICS_ID: ${VITE_GOOGLE_ANALYTICS_ID:-}
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-8081}:80"
