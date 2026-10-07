@@ -18,7 +18,7 @@ export function Footer() {
           <ul className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
             {CATEGORIES.map((c) => (
               <li key={c.id}>
-                <Link to={`/category/${c.id}`} className="text-slate-600 hover:text-brand-700">
+                <Link to={`/category/${c.id}/`} className="text-slate-600 hover:text-brand-700">
                   {c.name}
                 </Link>
               </li>
@@ -29,32 +29,37 @@ export function Footer() {
           <h2 className="mb-3 text-sm font-semibold text-slate-900">{SITE.brand}</h2>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link to="/tools" className="text-slate-600 hover:text-brand-700">
+              <Link to="/tools/" className="text-slate-600 hover:text-brand-700">
                 All tools
               </Link>
             </li>
             <li>
-              <Link to="/about" className="text-slate-600 hover:text-brand-700">
+              <Link to="/guides/" className="text-slate-600 hover:text-brand-700">
+                Guides
+              </Link>
+            </li>
+            <li>
+              <Link to="/about/" className="text-slate-600 hover:text-brand-700">
                 About
               </Link>
             </li>
             <li>
-              <Link to="/privacy-policy" className="text-slate-600 hover:text-brand-700">
+              <Link to="/privacy-policy/" className="text-slate-600 hover:text-brand-700">
                 Privacy policy
               </Link>
             </li>
             <li>
-              <Link to="/terms" className="text-slate-600 hover:text-brand-700">
+              <Link to="/terms/" className="text-slate-600 hover:text-brand-700">
                 Terms of use
               </Link>
             </li>
             <li>
-              <Link to="/disclaimer" className="text-slate-600 hover:text-brand-700">
+              <Link to="/disclaimer/" className="text-slate-600 hover:text-brand-700">
                 Disclaimer
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="text-slate-600 hover:text-brand-700">
+              <Link to="/contact/" className="text-slate-600 hover:text-brand-700">
                 Contact
               </Link>
             </li>

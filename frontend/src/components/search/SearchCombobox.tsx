@@ -74,7 +74,7 @@ export function SearchCombobox({
     if (opt.kind === 'tool') {
       if (query.trim()) recentSearches.push(query.trim().toLowerCase());
       analytics.track('search_result_clicked', { tool: opt.slug, query, position: position + 1 });
-      navigate(`/tools/${opt.slug}`);
+      navigate(`/tools/${opt.slug}/`);
       setOpen(variant === 'palette');
       onNavigate?.();
     } else if (opt.kind === 'all') {

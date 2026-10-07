@@ -87,6 +87,12 @@ Ads live in their own layout regions and never sit inside calculators, results, 
 - **Calculators** — pure TypeScript engines (`engine.ts`) rendered by a schema-driven `FormTool`,
   a text-transform `TextTool`, or a custom component. No calculation leaves the browser.
 - **Tax rules** — versioned per financial year in `src/tools/tax/rules/`.
+- **Guides and articles** — in-depth guides for key tools live in `src/tools/guides/<slug>.ts`
+  (one lazy chunk each, registered in `src/tools/guides/index.ts`); long-form articles live in
+  `src/data/articles/` and are served at `/guides/<slug>/`.
+- **Indexing** — tool pages with fewer than 150 words of explanation and no guide are marked
+  `noindex, follow` and left out of the sitemap (`src/seo/indexing.ts`). Adding a guide or more
+  content makes a page indexable automatically. All page URLs end in `/` to match GitHub Pages.
 - **Search** — client-side index with exact, prefix, keyword, alias, category and typo-tolerant
   matching (`src/search/`). Ctrl/⌘ + K opens it anywhere.
 - **Favourites / recently used / recent searches** — `localStorage` only

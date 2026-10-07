@@ -226,3 +226,13 @@ export function formatHMS(totalSeconds: number): string {
   if (s || parts.length === 0) parts.push(`${s} sec`);
   return sign + parts.join(' ');
 }
+
+/** "7 October 2026" for an ISO date, used for published/reviewed dates on content pages. */
+export function formatPublishDate(iso: string): string {
+  return new Intl.DateTimeFormat('en-IN', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(parseISODate(iso));
+}

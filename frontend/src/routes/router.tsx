@@ -19,6 +19,13 @@ const StaticPage = lazy(() =>
   import('@/pages/StaticPage').then((m) => ({ default: m.StaticPage })),
 );
 
+const GuidesPage = lazy(() =>
+  import('@/pages/GuidesPage').then((m) => ({ default: m.GuidesPage })),
+);
+const ArticlePage = lazy(() =>
+  import('@/pages/ArticlePage').then((m) => ({ default: m.ArticlePage })),
+);
+
 const wrap = (node: ReactNode) => (
   <Suspense fallback={<div className="container-page py-10" aria-busy="true" />}>{node}</Suspense>
 );
@@ -34,9 +41,11 @@ export const routes: RouteObject[] = [
       { path: '/search', element: wrap(<SearchPage />) },
       { path: '/favorites', element: wrap(<FavoritesPage />) },
       { path: '/favourites', element: <Navigate to="/favorites" replace /> },
+      { path: '/guides', element: wrap(<GuidesPage />) },
+      { path: '/guides/:slug', element: wrap(<ArticlePage />) },
       { path: '/about', element: wrap(<StaticPage page="about" />) },
       { path: '/privacy-policy', element: wrap(<StaticPage page="privacy" />) },
-      { path: '/privacy', element: <Navigate to="/privacy-policy" replace /> },
+      { path: '/privacy', element: <Navigate to="/privacy-policy/" replace /> },
       { path: '/disclaimer', element: wrap(<StaticPage page="disclaimer" />) },
       { path: '/contact', element: wrap(<StaticPage page="contact" />) },
       { path: '/terms', element: wrap(<StaticPage page="terms" />) },

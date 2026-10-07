@@ -34,6 +34,23 @@ export interface ToolContent {
   faq: Faq[];
 }
 
+/** One block of a long-form guide: a heading followed by paragraphs, a bullet list and/or a table. */
+export interface GuideSection {
+  heading: string;
+  paragraphs?: string[];
+  list?: string[];
+  table?: { head: string[]; rows: string[][] };
+}
+
+/** In-depth, hand-written guide shown below a tool. Loaded lazily, one module per tool. */
+export interface ToolGuide {
+  /** ISO date the guide was last checked against current rules. */
+  reviewed: string;
+  sections: GuideSection[];
+  /** Extra FAQs, appended to the tool's own FAQ list. */
+  faq?: Faq[];
+}
+
 /** Lightweight metadata that is always in memory (search index, cards, routing). */
 export interface ToolMeta {
   id: string;

@@ -33,7 +33,7 @@ describe('tool page', () => {
       expect(document.title).toBe('EMI Calculator – Free Online | BASERASTECH India Tools'),
     );
     expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toMatch(
-      /\/tools\/emi-calculator$/,
+      /\/tools\/emi-calculator\/$/,
     );
     const types = [...document.querySelectorAll('script[type="application/ld+json"]')].map(
       (s) => JSON.parse(s.textContent!)['@type'],
@@ -105,7 +105,7 @@ describe('global search', () => {
     await user.keyboard('{ArrowDown}');
     expect(options[1]).toHaveAttribute('aria-selected', 'true');
     await user.keyboard('{ArrowUp}{Enter}');
-    await waitFor(() => expect(router.state.location.pathname).toBe('/tools/emi-calculator'));
+    await waitFor(() => expect(router.state.location.pathname).toBe('/tools/emi-calculator/'));
   });
 
   it('homepage hero search suggests tools', async () => {

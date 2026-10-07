@@ -16,6 +16,7 @@ import { Disclaimer } from '@/components/tool/Disclaimer';
 import { FavoriteButton } from '@/components/tool/FavoriteButton';
 import { ToolContext } from '@/components/tool/ToolContext';
 import { ToolGrid } from '@/components/tool/ToolCard';
+import { GuideSections } from '@/components/content/GuideSections';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { ToolIcon } from '@/components/ui/icons';
 import { CATEGORY_MAP } from '@/data/categories';
@@ -27,10 +28,13 @@ import {
   toolPath,
   webApplicationSchema,
 } from '@/seo/schema';
+import { isToolIndexable } from '@/seo/indexing';
 import { Seo } from '@/seo/Seo';
 import { recentTools } from '@/services/storage';
+import { loadToolGuide } from '@/tools/guides';
 import { getTool, getTools, loadToolContent, POPULAR_TOOLS, relatedTools } from '@/tools/registry';
-import type { ToolContent, ToolDefinition } from '@/types/tool';
+import type { ToolContent, ToolDefinition, ToolGuide } from '@/types/tool';
+import { formatPublishDate } from '@/utils/date';
 import { NotFoundPage } from './NotFoundPage';
 
 const componentCache = new Map<string, LazyExoticComponent<ComponentType>>();
@@ -86,14 +90,23 @@ export function ToolPage() {
   const base = getTool(slug);
   const tool = base;
   const [content, setContent] = useState<ToolContent | undefined>();
+  const [guide, setGuide] = useState<ToolGuide | undefined>();
+  const [loaded, setLoaded] = useState(false);
   const recent = usePersistedList(recentTools);
 
   useEffect(() => {
     if (!tool) return;
     let cancelled = false;
     setContent(undefined);
-    loadToolContent(tool)
-      .then((c) => !cancelled && setContent(c))
+    setGuide(undefined);
+    setLoaded(false);
+    Promise.all([loadToolContent(tool), loadToolGuide(tool.slug)])
+      .then(([c, g]) => {
+        if (cancelled) return;
+        setContent(c);
+        setGuide(g);
+        setLoaded(true);
+      })
       .catch(() => undefined);
     recentTools.push(tool.slug);
     analytics.track('tool_view', { tool: tool.slug, category: tool.category });
@@ -118,7 +131,7 @@ export function ToolPage() {
   const popularOthers = POPULAR_TOOLS.filter(
     (t) => t.slug !== tool.slug && !related.some((r) => r.slug === t.slug),
   ).slice(0, 6);
-  const faqs = content?.faq ?? [];
+  const faqs = [...(content?.faq ?? []), ...(guide?.faq ?? [])];
   const howToUse = content?.howToUse ?? [
     'Enter your values in the fields above — sensible defaults are pre-filled.',
     'Results update instantly; press the main button to confirm.',
@@ -131,6 +144,7 @@ export function ToolPage() {
         title={tool.seoTitle}
         description={tool.seoDescription}
         path={toolPath(tool.slug)}
+        noindex={loaded && !isToolIndexable(content, guide)}
         jsonLd={[
           webApplicationSchema(tool, content?.description),
           breadcrumbSchema(crumbs),
@@ -207,6 +221,15 @@ export function ToolPage() {
                     ))}
                   </ol>
                 </ContentSection>
+                {guide && (
+                  <>
+                    <GuideSections sections={guide.sections} idPrefix="guide" />
+                    <p className="text-sm text-slate-500">
+                      Guide last reviewed on{' '}
+                      <time dateTime={guide.reviewed}>{formatPublishDate(guide.reviewed)}</time>.
+                    </p>
+                  </>
+                )}
                 {faqs.length > 0 && (
                   <section aria-labelledby="faq">
                     <h2 id="faq" className="mb-3 text-xl">

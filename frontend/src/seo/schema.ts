@@ -3,14 +3,26 @@ import type { CategoryDefinition, Faq, ToolMeta } from '@/types/tool';
 
 export type JsonLd = Record<string, unknown>;
 
-export const absoluteUrl = (path: string) =>
-  `${SITE.url}${path.startsWith('/') ? path : `/${path}`}`;
+/**
+ * Page URLs end in a slash: GitHub Pages serves `/tools/x/index.html` at `/tools/x/` and
+ * 301-redirects `/tools/x`, so canonical links, the sitemap and internal links all use the slash form.
+ * Paths with a file extension (`/sitemap.xml`) are left alone; a query string is preserved.
+ */
+export function withSlash(path: string): string {
+  const p = path.startsWith('/') ? path : `/${path}`;
+  const i = p.search(/[?#]/);
+  const [pathname, rest] = i === -1 ? [p, ''] : [p.slice(0, i), p.slice(i)];
+  if (pathname.endsWith('/') || /\.[a-z0-9]+$/i.test(pathname)) return p;
+  return `${pathname}/${rest}`;
+}
+
+export const absoluteUrl = (path: string) => `${SITE.url}${withSlash(path)}`;
 
 export function toolPath(slug: string) {
-  return `/tools/${slug}`;
+  return `/tools/${slug}/`;
 }
 export function categoryPath(id: string) {
-  return `/category/${id}`;
+  return `/category/${id}/`;
 }
 
 export function organizationSchema(): JsonLd {
@@ -103,5 +115,28 @@ export function itemListSchema(category: CategoryDefinition, tools: ToolMeta[]):
         name: t.name,
       })),
     },
+  };
+}
+
+export function articleSchema(a: {
+  title: string;
+  description: string;
+  path: string;
+  published: string;
+  updated: string;
+}): JsonLd {
+  const org = { '@type': 'Organization', name: SITE.brand, url: SITE.url };
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: a.title,
+    description: a.description,
+    url: absoluteUrl(a.path),
+    mainEntityOfPage: absoluteUrl(a.path),
+    datePublished: a.published,
+    dateModified: a.updated,
+    inLanguage: 'en-IN',
+    author: org,
+    publisher: org,
   };
 }

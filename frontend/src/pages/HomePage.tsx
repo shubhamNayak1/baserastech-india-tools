@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { SearchCombobox } from '@/components/search/SearchCombobox';
 import { ToolGrid } from '@/components/tool/ToolCard';
 import { ToolIcon } from '@/components/ui/icons';
+import { ARTICLES, articlePath } from '@/data/articles';
 import { CATEGORIES } from '@/data/categories';
 import { SITE } from '@/config/site';
 import { usePersistedList } from '@/hooks/usePersistedList';
@@ -108,7 +109,7 @@ export function HomePage() {
         <Section
           id="popular-tools"
           title="Popular tools"
-          link={{ to: '/tools?sort=popular', label: 'View all' }}
+          link={{ to: '/tools/?sort=popular', label: 'View all' }}
         >
           <ToolGrid tools={popular} />
         </Section>
@@ -116,7 +117,7 @@ export function HomePage() {
         <Section
           id="categories"
           title="Browse by category"
-          link={{ to: '/tools', label: `All ${ACTIVE_TOOLS.length} tools` }}
+          link={{ to: '/tools/', label: `All ${ACTIVE_TOOLS.length} tools` }}
         >
           <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {CATEGORIES.map((c) => {
@@ -130,7 +131,7 @@ export function HomePage() {
                     <div>
                       <h3 className="text-base">
                         <Link
-                          to={`/category/${c.id}`}
+                          to={`/category/${c.id}/`}
                           className="after:absolute after:inset-0 hover:text-brand-700"
                         >
                           {c.name}
@@ -158,7 +159,7 @@ export function HomePage() {
         <Section
           id="financial-tools"
           title="Financial calculators"
-          link={{ to: '/category/finance', label: 'All finance tools' }}
+          link={{ to: '/category/finance/', label: 'All finance tools' }}
         >
           <ToolGrid tools={toolsInCategory('finance').slice(0, 6)} showCategory={false} />
         </Section>
@@ -166,15 +167,31 @@ export function HomePage() {
         <Section
           id="developer-tools"
           title="Developer tools"
-          link={{ to: '/category/developer', label: 'All developer tools' }}
+          link={{ to: '/category/developer/', label: 'All developer tools' }}
         >
           <ToolGrid tools={toolsInCategory('developer').slice(0, 6)} showCategory={false} />
+        </Section>
+
+        <Section id="guides" title="Guides" link={{ to: '/guides/', label: 'All guides' }}>
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {ARTICLES.map((a) => (
+              <li key={a.slug} className="rounded-xl border border-slate-200 bg-white p-5">
+                <Link
+                  to={articlePath(a.slug)}
+                  className="font-semibold text-slate-900 hover:text-brand-700 hover:underline"
+                >
+                  {a.title}
+                </Link>
+                <p className="mt-1 text-sm text-slate-600">{a.description}</p>
+              </li>
+            ))}
+          </ul>
         </Section>
 
         <Section
           id="recently-added"
           title="Recently added"
-          link={{ to: '/tools?sort=new', label: 'See more' }}
+          link={{ to: '/tools/?sort=new', label: 'See more' }}
         >
           <ToolGrid tools={recentlyAddedTools(6)} view="list" />
         </Section>

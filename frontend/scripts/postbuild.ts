@@ -22,7 +22,7 @@ for (const page of pages) {
     .replace(/<!--seo-->[\s\S]*?<!--\/seo-->/, renderHeadHtml(page.seo))
     .replace(
       '<noscript>BASERASTECH India Tools needs JavaScript to run its calculators.</noscript>',
-      `<noscript><div style="max-width:72rem;margin:0 auto;padding:1rem;font-family:sans-serif">${page.body}<p>Enable JavaScript to use this calculator.</p></div></noscript>`,
+      `<noscript><div style="max-width:72rem;margin:0 auto;padding:1rem;font-family:sans-serif">${page.body}${page.interactive ? '<p>Enable JavaScript to use this calculator.</p>' : ''}</div></noscript>`,
     );
   const out =
     page.path === '/' ? join(dist, 'index.html') : join(dist, page.path.slice(1), 'index.html');
@@ -54,4 +54,5 @@ writeFileSync(
     }),
   ),
 );
-console.info(`Prerendered ${pages.length} pages, sitemap with ${pages.length} URLs.`);
+const indexed = pages.filter((p) => !p.noindex).length;
+console.info(`Prerendered ${pages.length} pages; ${indexed} indexable pages in the sitemap.`);

@@ -28,7 +28,7 @@ export function ToolCard({
         </span>
         <div className="min-w-0 flex-1">
           <Link
-            to={`/tools/${tool.slug}`}
+            to={`/tools/${tool.slug}/`}
             className="font-medium text-slate-900 after:absolute after:inset-0 hover:text-brand-700"
           >
             {tool.name}
@@ -52,7 +52,7 @@ export function ToolCard({
         <div className="min-w-0">
           <h3 className="text-base font-semibold leading-snug">
             <Link
-              to={`/tools/${tool.slug}`}
+              to={`/tools/${tool.slug}/`}
               className="after:absolute after:inset-0 group-hover:text-brand-700"
             >
               {tool.name}

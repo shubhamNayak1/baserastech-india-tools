@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Heart, LayoutGrid, Menu, Search, X } from 'lucide-react';
+import { BookOpen, Heart, LayoutGrid, Menu, Search, X } from 'lucide-react';
 import { CATEGORIES } from '@/data/categories';
 import { ToolIcon } from '@/components/ui/icons';
 import { openCommandPalette } from '@/components/search/CommandPalette';
@@ -75,13 +75,21 @@ export function Header() {
         {isHome && <div className="hidden flex-1 md:block" />}
         <nav aria-label="Primary" className="ml-auto flex items-center gap-1">
           <NavLink
-            to="/tools"
+            to="/tools/"
             end
             className={({ isActive }) =>
               `btn-ghost btn-sm hidden whitespace-nowrap sm:inline-flex ${isActive ? 'text-brand-700' : ''}`
             }
           >
             <LayoutGrid className="h-4 w-4" aria-hidden="true" /> All tools
+          </NavLink>
+          <NavLink
+            to="/guides/"
+            className={({ isActive }) =>
+              `btn-ghost btn-sm hidden whitespace-nowrap sm:inline-flex ${isActive ? 'text-brand-700' : ''}`
+            }
+          >
+            <BookOpen className="h-4 w-4" aria-hidden="true" /> Guides
           </NavLink>
           <NavLink
             to="/favorites"
@@ -132,7 +140,7 @@ export function Header() {
             {CATEGORIES.map((c) => (
               <li key={c.id}>
                 <Link
-                  to={`/category/${c.id}`}
+                  to={`/category/${c.id}/`}
                   onClick={() => setMenuOpen(false)}
                   className="flex min-h-[44px] items-center gap-2 rounded-lg px-3 text-sm text-slate-700 hover:bg-slate-100"
                 >
@@ -142,11 +150,20 @@ export function Header() {
             ))}
             <li>
               <Link
-                to="/tools"
+                to="/tools/"
                 onClick={() => setMenuOpen(false)}
                 className="flex min-h-[44px] items-center gap-2 rounded-lg px-3 text-sm font-medium text-brand-700 hover:bg-slate-100"
               >
                 <LayoutGrid className="h-4 w-4" aria-hidden="true" /> All tools
+              </Link>
+            </li>
+            <li className="sm:hidden">
+              <Link
+                to="/guides/"
+                onClick={() => setMenuOpen(false)}
+                className="flex min-h-[44px] items-center gap-2 rounded-lg px-3 text-sm font-medium text-brand-700 hover:bg-slate-100"
+              >
+                <BookOpen className="h-4 w-4" aria-hidden="true" /> Guides
               </Link>
             </li>
           </ul>

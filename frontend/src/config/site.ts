@@ -12,6 +12,8 @@ export const SITE = {
   url: env.VITE_SITE_URL?.replace(/\/$/, '') || 'https://baserastechtools.com',
   /** Public contact address shown on the Contact page (optional until configured). */
   contactEmail: env.VITE_CONTACT_EMAIL?.trim() || '',
+  /** Public issue tracker, used as a contact channel. */
+  issuesUrl: 'https://github.com/shubhamNayak1/baserastech-india-tools/issues',
   locale: 'en_IN',
   twitter: '@baserastech',
   launchDate: '2026-09-27',

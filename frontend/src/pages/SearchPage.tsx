@@ -95,7 +95,7 @@ export function SearchPage() {
             <ul className="flex flex-wrap gap-2">
               {CATEGORIES.map((c) => (
                 <li key={c.id}>
-                  <Link to={`/category/${c.id}`} className="chip">
+                  <Link to={`/category/${c.id}/`} className="chip">
                     {CATEGORY_MAP[c.id].name}
                   </Link>
                 </li>

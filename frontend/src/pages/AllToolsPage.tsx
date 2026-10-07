@@ -51,7 +51,7 @@ export function AllToolsPage() {
 
   const crumbs = [
     { name: 'Home', path: '/' },
-    { name: 'All tools', path: '/tools' },
+    { name: 'All tools', path: '/tools/' },
   ];
 
   return (
@@ -59,7 +59,7 @@ export function AllToolsPage() {
       <Seo
         title={`All ${ACTIVE_TOOLS.length} Free Online Calculators & Tools`}
         description={`Browse all ${ACTIVE_TOOLS.length} free calculators, converters and generators: finance, salary, tax, GST, business, math, date, health, education, developer and text tools.`}
-        path="/tools"
+        path="/tools/"
         jsonLd={[breadcrumbSchema(crumbs)]}
       />
       <Breadcrumbs items={crumbs} />

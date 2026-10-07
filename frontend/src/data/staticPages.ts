@@ -19,21 +19,48 @@ export type StaticPageKey = 'about' | 'privacy' | 'terms' | 'disclaimer' | 'cont
 
 export const STATIC_PAGES: Record<StaticPageKey, StaticPageContent> = {
   about: {
-    path: '/about',
+    path: '/about/',
     title: `About ${SITE.name}`,
-    description: `${SITE.name} offers free calculators and online tools built for India.`,
+    description: `Who runs ${SITE.name}, how the calculators are built and checked, and how the site is funded.`,
     sections: [
       {
         paragraphs: [
-          `${SITE.name} is a free collection of online calculators, converters and generators built by ${SITE.brand} for people in India. Every tool gives an instant answer and explains how that answer was reached, with the formula, a worked example and answers to common questions.`,
-          'Financial tools follow Indian conventions: rupee amounts in lakh and crore, bank-style EMI and deposit calculations, and tax rules versioned by financial year so they can be updated as laws change.',
-          'Every tool is free to use, with no sign-up. Calculations happen entirely in your browser. The site is supported by advertising.',
+          `${SITE.name} is a free collection of calculators, converters and everyday tools for people in India, published by ${SITE.brand}. It covers loans and EMIs, savings and investments, income tax and GST, salary and payroll, health, education, dates, unit conversions, text and developer utilities.`,
+          'We built it because most Indian finance calculators online either hide the method behind a sign-up form or apply rules from another country. Every tool here gives an instant answer and shows how that answer was reached: the formula, a worked example and the assumptions behind it.',
+        ],
+      },
+      {
+        heading: 'What makes these tools different',
+        paragraphs: [
+          'Indian conventions come first. Amounts are shown in rupees with lakh and crore grouping, EMIs use the reducing-balance method that Indian banks use, fixed deposits compound quarterly the way bank FDs do, and salary tools follow the EPF, gratuity and professional-tax rules that appear on Indian payslips.',
+          'Tax rules are kept per financial year. Slabs, rebates, the standard deduction, surcharge, cess and capital-gains rates for each year live in their own rule file, so a calculator never mixes rules from different years and a new Budget can be applied in one place.',
+          'Your data stays with you. Every calculation runs inside your browser. What you type is not sent to us, there are no accounts, and nothing asks for your name, phone number or PAN.',
+        ],
+      },
+      {
+        heading: 'How calculations are checked',
+        paragraphs: [
+          'Each calculator has a separate calculation engine with automated tests that check its results against hand-worked reference cases: for example, that a standard home loan gives the EMI a bank would quote, that a salary of ₹12.75 lakh pays no tax under the new regime, and that HRA exemption is the least of its three limits. More than 600 of these tests run every time the site is rebuilt, so a change that breaks a formula is not published.',
+          'Rates and limits come from official sources: the Income Tax Department and CBDT notifications for income tax, CBIC for GST, EPFO for provident fund, and the Ministry of Finance for small-savings rates. Where a figure is announced but not yet final, the tool says so.',
+          'In-depth guides on the most used tools, and the articles in the Guides section, show the date they were last reviewed.',
+        ],
+      },
+      {
+        heading: 'Corrections',
+        paragraphs: [
+          'If you find a result that looks wrong, please tell us through the Contact page with the tool name and the inputs you used. Confirmed errors are fixed and the corrected version is published as soon as it passes the tests.',
+        ],
+      },
+      {
+        heading: 'How the site is funded',
+        paragraphs: [
+          'Every tool is free to use, without sign-up or paid plans. The site is supported by advertising from Google AdSense. Ads are kept in their own spaces and never placed inside a calculator or its results, and advertisers have no influence over the content.',
         ],
       },
     ],
   },
   privacy: {
-    path: '/privacy-policy',
+    path: '/privacy-policy/',
     title: 'Privacy policy',
     description: `How ${SITE.name} handles your data, cookies and advertising.`,
     sections: [
@@ -99,7 +126,7 @@ export const STATIC_PAGES: Record<StaticPageKey, StaticPageContent> = {
     ],
   },
   terms: {
-    path: '/terms',
+    path: '/terms/',
     title: 'Terms of use',
     description: `Terms of use for ${SITE.name}.`,
     sections: [
@@ -116,7 +143,7 @@ export const STATIC_PAGES: Record<StaticPageKey, StaticPageContent> = {
     ],
   },
   disclaimer: {
-    path: '/disclaimer',
+    path: '/disclaimer/',
     title: 'Disclaimer',
     description: `Financial, tax and health disclaimers for ${SITE.name}.`,
     sections: [
@@ -133,18 +160,18 @@ export const STATIC_PAGES: Record<StaticPageKey, StaticPageContent> = {
     ],
   },
   contact: {
-    path: '/contact',
+    path: '/contact/',
     title: 'Contact',
     description: `How to contact ${SITE.brand} about ${SITE.name}.`,
     sections: [
       {
         paragraphs: [
           'We welcome reports of calculation errors, suggestions for new tools and feedback on the site.',
-          SITE.contactEmail
-            ? `Email: ${SITE.contactEmail}`
-            : `You can reach ${SITE.brand} through the contact details published on the company website.`,
+          ...(SITE.contactEmail ? [`Email: ${SITE.contactEmail}`] : []),
+          'You can also report a problem or suggest a tool publicly on GitHub, where the site’s source code is published.',
           'When reporting a calculation issue, please mention the tool name and the inputs you used. There is no need to send any personal or financial documents.',
         ],
+        links: [{ label: 'Report an issue on GitHub', href: SITE.issuesUrl }],
       },
     ],
   },
