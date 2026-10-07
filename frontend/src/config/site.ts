@@ -14,8 +14,6 @@ export const SITE = {
   contactEmail: env.VITE_CONTACT_EMAIL?.trim() || 'info@baserastech.com',
   /** Company website of the publisher. */
   companyUrl: 'https://www.baserastech.com',
-  /** Public issue tracker, used as a contact channel. */
-  issuesUrl: 'https://github.com/shubhamNayak1/baserastech-india-tools/issues',
   locale: 'en_IN',
   twitter: '@baserastech',
   launchDate: '2026-09-27',

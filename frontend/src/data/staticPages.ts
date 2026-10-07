@@ -167,13 +167,12 @@ export const STATIC_PAGES: Record<StaticPageKey, StaticPageContent> = {
       {
         paragraphs: [
           'We welcome reports of calculation errors, suggestions for new tools and feedback on the site.',
-          `Write to us at ${SITE.contactEmail}, or report a problem or suggest a tool publicly on GitHub, where the site’s source code is published.`,
+          `Write to us at ${SITE.contactEmail}.`,
           'When reporting a calculation issue, please mention the tool name and the inputs you used. There is no need to send any personal or financial documents.',
         ],
         links: [
           { label: `Email ${SITE.contactEmail}`, href: `mailto:${SITE.contactEmail}` },
           { label: `${SITE.brand} website`, href: SITE.companyUrl },
-          { label: 'Report an issue on GitHub', href: SITE.issuesUrl },
         ],
       },
     ],
