@@ -25,7 +25,7 @@ export const STATIC_PAGES: Record<StaticPageKey, StaticPageContent> = {
     sections: [
       {
         paragraphs: [
-          `${SITE.name} is a free collection of calculators, converters and everyday tools for people in India, published by ${SITE.brand}. It covers loans and EMIs, savings and investments, income tax and GST, salary and payroll, health, education, dates, unit conversions, text and developer utilities.`,
+          `${SITE.name} is a free collection of calculators, converters and everyday tools for people in India, published by ${SITE.brand} (${SITE.companyUrl.replace(/^https:\/\//, '')}). It covers loans and EMIs, savings and investments, income tax and GST, salary and payroll, health, education, dates, unit conversions, text and developer utilities.`,
           'We built it because most Indian finance calculators online either hide the method behind a sign-up form or apply rules from another country. Every tool here gives an instant answer and shows how that answer was reached: the formula, a worked example and the assumptions behind it.',
         ],
       },
@@ -167,11 +167,14 @@ export const STATIC_PAGES: Record<StaticPageKey, StaticPageContent> = {
       {
         paragraphs: [
           'We welcome reports of calculation errors, suggestions for new tools and feedback on the site.',
-          ...(SITE.contactEmail ? [`Email: ${SITE.contactEmail}`] : []),
-          'You can also report a problem or suggest a tool publicly on GitHub, where the site’s source code is published.',
+          `Write to us at ${SITE.contactEmail}, or report a problem or suggest a tool publicly on GitHub, where the site’s source code is published.`,
           'When reporting a calculation issue, please mention the tool name and the inputs you used. There is no need to send any personal or financial documents.',
         ],
-        links: [{ label: 'Report an issue on GitHub', href: SITE.issuesUrl }],
+        links: [
+          { label: `Email ${SITE.contactEmail}`, href: `mailto:${SITE.contactEmail}` },
+          { label: `${SITE.brand} website`, href: SITE.companyUrl },
+          { label: 'Report an issue on GitHub', href: SITE.issuesUrl },
+        ],
       },
     ],
   },

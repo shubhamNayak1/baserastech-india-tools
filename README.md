@@ -42,7 +42,7 @@ Copy `frontend/.env.example` to `frontend/.env`. Every variable is optional.
 | Variable | Purpose |
 | --- | --- |
 | `VITE_SITE_URL` | Public origin used for canonical URLs, sitemap and OpenGraph |
-| `VITE_CONTACT_EMAIL` | Shown on `/contact` |
+| `VITE_CONTACT_EMAIL` | Overrides the contact email on `/contact` (default info@baserastech.com) |
 | `VITE_ADSENSE_ENABLED` | `true` to serve real ads; default `false` shows placeholders |
 | `VITE_ADSENSE_PUBLISHER_ID` | `ca-pub-…` from your AdSense account |
 | `VITE_ADSENSE_TOP_SLOT` / `_BOTTOM_SLOT` / `_LEFT_SLOT` / `_RIGHT_SLOT` | Display ad unit slot IDs |

@@ -32,6 +32,8 @@ export function organizationSchema(): JsonLd {
     name: SITE.brand,
     url: SITE.url,
     logo: absoluteUrl('/icons/icon-512.png'),
+    email: SITE.contactEmail,
+    sameAs: [SITE.companyUrl],
   };
 }
 
